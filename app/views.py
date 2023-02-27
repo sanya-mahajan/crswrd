@@ -11,7 +11,7 @@ def home(request):
     this_user=request.user
     if(Player.objects.filter(user=this_user).exists()):
         player=Player.objects.get(user=this_user)
-        return render(request,'thanks.html')
+        return HttpResponse("You have already played the game")
 
     
 
@@ -27,10 +27,11 @@ def home(request):
         time= request.POST.get('timer')
         player= Player(user=this_user,score=score,time=time)
         
-        player.save()
+        #player.save()
 
             
         return render(request,'thanks.html',{'score':score,'time':time})
+        
     else:
         
         return render(request,'home.html',{'questions':Ques.objects.all()})
